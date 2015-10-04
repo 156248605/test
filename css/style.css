@@ -1,0 +1,19 @@
+@charset "utf-8";
+#grade{
+    color: #333;
+    width:600px;
+    border-collapse: collapse;
+    margin: 50px auto;
+
+}
+#grade th{
+    height: 40px;
+    line-height: 40px;
+    border-bottom:1px solid #ddd;
+}
+#grade td{
+    height: 40px;
+    line-height: 40px;
+    border-bottom:1px solid #ddd;
+    text-align: center;
+}
