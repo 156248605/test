@@ -16,5 +16,8 @@ class Validate {
 	static public function inArray($_data, $_array) {
 		return in_array($_data, $_array) ? true : false;
 	}
+	//判断字符串是否为空
+	static public function isNullString($_string) {
+		return empty($_string) ? true : false;
+	}
 }
-?>
