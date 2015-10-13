@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="view/admin/style/basic.css">
     <link rel="stylesheet" href="view/admin/style/manager.css">
-    <title></title>
+    <script type="text/javascript" src="view/admin/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="view/admin/js/manager.js"></script>
+    <title>在线商城后台管理</title>
 </head>
 <body>
 <h2><a href="?a=manager">返回管理员列表</a>系统 -- 添加管理员</h2>
 <form method="post" action="?a=manager&m=add">
+    <input type="hidden" name="flag" id="flag" />
     <dl class="form">
         <dd>用 户 名：<input type="text" name="user" class="text" /> ( * 2-20位之间 )</dd>
         <dd>密　　码：<input type="password" name="pass" class="text" /> ( * 大于6位 )</dd>
