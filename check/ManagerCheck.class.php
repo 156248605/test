@@ -2,7 +2,7 @@
 class ManagerCheck extends  Check{
     //用户名不得包含指定的非法词组，敏感词
     //密码不能纯数字，纯字母，或者必须包含特殊字符，或者必须大小写混拼
-    public  function  check()
+    public  function  check(&$_model)
     {
         if (self::isNullString($this->_data['user'])) {
             $this->_message[] = '管理员用户名不得为空!';
@@ -28,7 +28,10 @@ class ManagerCheck extends  Check{
             $this->_message[] = '管理员等级权限必须选择！';
             $this->_flag = false;
         }
-
+        if ($_model->isOne(array('user'=>$this->_data['user']))){
+            $this->_message[] = '管理员用户名被占用！';
+            $this->_flag = false;
+        }
 
         return $this->_flag;
     }

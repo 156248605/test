@@ -13,7 +13,7 @@ class ManagerAction extends  Action{
     }
     //添加管理员
     public function add() {
-        if (isset($_POST['send'])) echo $this->_model->add(Request::getInstance($this->_check));
+        if (isset($_POST['send'])) echo $this->_model->add(Request::getInstance($this->_model,$this->_check));
         $this->_tpl->display(SMARTY_ADMIN.'manager/add.html');
     }
     //修改管理员

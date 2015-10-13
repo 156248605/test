@@ -6,11 +6,14 @@ class Request {
 	//验证对象
 	private  $_check = null;
     private  $_tpl = null;
+    //实体对象
+    private $_model = null;
 	
 	//公共静态方法获取实例化的对象
-	static public function getInstance(&$_check) {
+	static public function getInstance(&$_model,&$_check) {
 		if (!(self::$_instance instanceof self)) {
 			self::$_instance = new self();
+            self::$_instance->_model = $_model;
 			self::$_instance->_check = $_check;
             self::$_instance->_tpl = TPL::getInstance();
 		}
@@ -27,7 +30,7 @@ class Request {
 	public function add($_fields) {
 		$_addData = array();
 		if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-			if (!$this->_check->check()) {
+			if (!$this->_check->check($this->_model)) {
                 $this->_tpl->assign('message', $this->_check->getMessage());
                 $this->_tpl->assign('prev', Tool::getPrevPage());
                 $this->_tpl->display(SMARTY_ADMIN.'public/error.html');

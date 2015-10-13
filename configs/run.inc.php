@@ -3,9 +3,7 @@ error_reporting(E_ALL);
 define('ROOT_PATH',substr(dirname(__FILE__),0,-8));
 require ROOT_PATH.'/configs/profile.inc.php';
 require ROOT_PATH.'/smarty/Smarty.class.php';
-/*require ROOT_PATH.'/public/TPL.class.php';
-require ROOT_PATH.'/public/Factory.class.php';
-require ROOT_PATH.'/public/DB.class.php';*/
+date_default_timezone_set('Asia/Shanghai');
 //自动加载类
 function my_autoloader($_className){
     if (substr($_className, -6) == 'Action') {

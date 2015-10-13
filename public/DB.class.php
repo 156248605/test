@@ -32,13 +32,26 @@ class DB {
          $_addFields = implode(',', $_addFields);
          $_addValues = implode("','", $_addValues);
          $_sql = "INSERT INTO $_tables[0] ($_addFields) VALUES ('$_addValues')";
-         $_stmt = $this->_pdo->prepare($_sql);
-         $_stmt->execute();
-         return $_stmt->rowCount();
-
-
+         return $this->execute($_sql);
      }
+     //验证一条数据
+    protected  function  isOne($_where,$_tables){
+        $_isAnd = '';
+        foreach ($_where as $_key=>$_value){
+            $_isAnd .= "$_key='$_value' AND ";
+        }
+        $_isAnd =substr($_isAnd,0,-4);
+        $_sql="SELECT id FROM $_tables[0] WHERE $_isAnd LIMIT 1";
+        return $this->execute($_sql);
+    }
+    //执行并返回影响行数
+    private  function  execute($_sql) {
+        $_stmt=$this->_pdo->prepare($_sql);
+        $_stmt->execute();
+        return $_stmt->rowCount();
 
 
+
+    }
 
 }

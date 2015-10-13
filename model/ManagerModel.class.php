@@ -12,4 +12,11 @@
          $_addData['reg_time'] = Tool::getDate();
          return parent::add($_addData, $this->_tables);
      }
+     public  function  isOne($_where,$b=0) {
+         return parent::isOne($_where,$this->_tables);
+
+
+
+
+     }
  }
