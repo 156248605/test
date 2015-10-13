@@ -21,8 +21,8 @@ class ManagerAction extends  Action{
         $this->_tpl->display(SMARTY_ADMIN.'manager/update.html');
     }
     //ajax
-    public  function  ajax(){
-
+    public  function  ajax($b=0){
+        $this->_check->ajax($this->_model);
 
 
 

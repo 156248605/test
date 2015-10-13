@@ -38,9 +38,19 @@ $(function () {
     });
 
     $('input[name=user]').on('blur',function(){
+        $.ajax({
+            type:"POST",
+            url:"?a=manager&m=ajax",
+            data:{user:$('input[name=user]').val()},
+            success:function(data){
+               if(data==1){
+                   $('input[name=flag]').val()='true';
+               }else{
+                   alert('1');
+               }
 
-       alert('likai');
-
+            }
+        });
 
 
     });
