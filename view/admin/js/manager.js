@@ -37,7 +37,13 @@ $(function () {
         return true;
     });
 
+    $('input[name=user]').on('blur',function(){
 
+       alert('likai');
+
+
+
+    });
 
 
 

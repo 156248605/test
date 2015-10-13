@@ -20,6 +20,14 @@ class ManagerAction extends  Action{
     public function update() {
         $this->_tpl->display(SMARTY_ADMIN.'manager/update.html');
     }
+    //ajax
+    public  function  ajax(){
+
+
+
+
+    }
+
 }
 
 
