@@ -32,17 +32,9 @@ class ManagerCheck extends  Check{
             $this->_message[] = '管理员用户名被占用！';
             $this->_flag = false;
         }
-
         return $this->_flag;
     }
     public  function  ajax(&$_model){
          echo $_model->isOne(array('user'=>$_POST['user'])) ?1:2;
     }
-
-
-
-
-
-
-
 }
