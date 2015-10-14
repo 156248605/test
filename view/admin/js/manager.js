@@ -4,6 +4,7 @@ $(function () {
         var pass=$('input[name=pass]').val();
         var notpass=$('input[name=notpass]').val();
         var level = $('select[name=level]').val();
+        var flag = $('input[name=flag]').val();
         if (user == '') {
             alert('管理员用户名不得为空！');
             $('input[name=user]').focus();
@@ -34,6 +35,11 @@ $(function () {
             $('input[name=user]').focus();
             return false;
         }
+        if (flag!=''){
+            alert('管理员用户名被占用！');
+            $('input[name=user]').focus();
+             return false;
+        }
         return true;
     });
 
@@ -44,9 +50,9 @@ $(function () {
             data:{user:$('input[name=user]').val()},
             success:function(data){
                if(data==1){
-                   $('input[name=flag]').val()='true';
+                   $('input[name=flag]').val('true');
                }else{
-                   alert('1');
+                   $('input[name=flag]').val('');
                }
 
             }

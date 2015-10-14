@@ -5,7 +5,7 @@ html {
 #header{
     color: #fff;
     height: 80px;
-    background: #278296 url(../admin/images/alogo.png) no-repeat left top;
+    background: #278296 url(../images/alogo.png) no-repeat left top;
 
 }
 #header p{
@@ -65,13 +65,13 @@ html {
     font-weight:bold;
     height:20px;
     line-height:20px;
-    background:url(../admin/images/nav1.gif) no-repeat left 5px;
+    background:url(../images/nav1.gif) no-repeat left 5px;
     padding:0 0 0 15px;
 }
 #sidebar dl dd {
     height:20px;
     line-height:20px;
-    background:url(../admin/images/nav2.gif) no-repeat 15px 5px;
+    background:url(../images/nav2.gif) no-repeat 15px 5px;
     padding:0 0 0 30px;
 }
 #sidebar dl dd a {

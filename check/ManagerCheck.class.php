@@ -36,7 +36,7 @@ class ManagerCheck extends  Check{
         return $this->_flag;
     }
     public  function  ajax(&$_model){
-         echo $_model->isOne(array('user'=>$this->$_POST['user'])) ?1:2;
+         echo $_model->isOne(array('user'=>$_POST['user'])) ?1:2;
     }
 
 
