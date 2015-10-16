@@ -75,14 +75,14 @@ class Page {
 		}
 		return $_pagelist;
 	}
-	
+
 	//首页
 	private function first() {
 		if ($this->_page > $this->_bothnum+1) {
 			return ' <a href="'.$this->_url.'">1</a> ...';
 		}
 	}
-	
+
 	//上一页
 	private function prev() {
 		if ($this->_page == 1) {
