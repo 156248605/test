@@ -9,6 +9,8 @@ class ManagerAction extends  Action{
         parent::__construct($this->_setmodel,$this->_setcheck);
     }
     public  function  index(){
+        parent::page($this->_model->total());
+        $this->_tpl->assign('AllManager',$this->_model->findAll());
         $this->_tpl->display(SMARTY_ADMIN.'manager/manager.html');
     }
     //添加管理员
@@ -19,9 +21,6 @@ class ManagerAction extends  Action{
            }else{
                Redirect::getInstance($this->_tpl)->error('管理员新增失败!');
            }
-
-
-
         };
         $this->_tpl->display(SMARTY_ADMIN.'manager/add.html');
     }

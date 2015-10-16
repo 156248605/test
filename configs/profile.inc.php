@@ -6,3 +6,6 @@ define('DB_DNS', 'mysql:host=localhost;dbname=mall');//数据库的dns
 define('DB_USER', 'root');//用户名
 define('DB_PASS', '123456');//密码
 define('DB_FREFIX', 'mall_');//表前缀
+
+//系统参数设置
+define('PAGE_SIZE', 10);//分页数量

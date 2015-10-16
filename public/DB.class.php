@@ -1,10 +1,13 @@
 <?php
 class DB {
      private  $_pdo = null;
+    //数据表
+    private  $_tables = array();
      static  private  $_instance = null;
-     static  protected  function  getInstance(){
+     static  protected  function  getInstance($_tables){
          if(!(self::$_instance instanceof self)){
              self::$_instance = new self();
+             self::$_instance->_tables=$_tables;
          }
            return self::$_instance;
      }
@@ -14,15 +17,11 @@ class DB {
          try {
              $this->_pdo =new PDO(DB_DNS, DB_USER, DB_PASS,array(PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES UTF8'));
              $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
          } catch (PDOException $e) {
-
              exit('数据库连接失败:'.$e->getMessage());
-
          }
-
      }
-     protected  function  add($_addData, $_tables){
+     protected  function  add($_addData){
          $_addFields = array();
          $_addValues = array();
          foreach ($_addData as $_key=>$_value) {
@@ -31,27 +30,44 @@ class DB {
          }
          $_addFields = implode(',', $_addFields);
          $_addValues = implode("','", $_addValues);
-         $_sql = "INSERT INTO $_tables[0] ($_addFields) VALUES ('$_addValues')";
+         $_sql = "INSERT INTO {$this->_tables[0]} ($_addFields) VALUES ('$_addValues')";
          return $this->execute($_sql);
      }
      //验证一条数据
-    protected  function  isOne($_where,$_tables){
+    protected  function  isOne($_where){
         $_isAnd = '';
         foreach ($_where as $_key=>$_value){
             $_isAnd .= "$_key='$_value' AND ";
         }
         $_isAnd =substr($_isAnd,0,-4);
-        $_sql="SELECT id FROM $_tables[0] WHERE $_isAnd LIMIT 1";
-        return $this->execute($_sql);
+        $_sql="SELECT id FROM {$this->_tables[0]} WHERE $_isAnd LIMIT 1";
+        return $this->execute($_sql)->rowCount();
+    }
+    //返回所有数据
+    protected  function   select($_fileld,$_param=array()){
+        //$_sql="SELECT user,level,login_count,last_ip,last_time FROM $_tables[0] limit {$_limit}";
+        $_limit = '';
+        if(Validate::isArray($_param) && !Validate::isNullArray($_param)){
+            $_limit = isset($_param['limit'])?$_param['limit'] : '';
+        }
+        $_selectFields = implode(',',$_fileld);
+        $_sql = "SELECT $_selectFields FROM {$this->_tables[0]} $_limit";
+        $_isAll=$this->execute($_sql);
+        $_result=array();
+        while(!!$row=$_isAll->fetchObject()){
+            $_result[]=$row;
+        }
+        return $_result;
+    }
+    protected function  total(){
+        $_sql= "SELECT COUNT(*) as count FROM {$this->_tables[0]}";
+        $_stmt = $this->execute($_sql);
+        return $_stmt->fetchObject()->count;
     }
     //执行并返回影响行数
     private  function  execute($_sql) {
         $_stmt=$this->_pdo->prepare($_sql);
         $_stmt->execute();
-        return $_stmt->rowCount();
-
-
-
+        return $_stmt;
     }
-
 }
