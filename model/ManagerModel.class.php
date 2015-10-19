@@ -13,12 +13,12 @@
      public function total(){
          return parent::total();
      }
-     public  function  add($_request,$b=0){
+     public  function  add($_request){
          $_addData = $_request->add($this->_fields);
          $_addData['pass'] = sha1($_addData['pass']);
          $_addData['last_ip'] = Tool::getIP();
          $_addData['reg_time'] = Tool::getDate();
-         return parent::add($_addData, $this->_tables);
+         return parent::add($_addData);
      }
      public  function  delete($b=0){
          $_deleteData = $this->_request->delete($this->_fields);
@@ -26,8 +26,8 @@
 
 
      }
-     public  function  isOne($_where,$b=0) {
-         return parent::isOne($_where,$this->_tables);
+     public  function  isOne($_where) {
+         return parent::isOne($_where);
      }
 
  }
