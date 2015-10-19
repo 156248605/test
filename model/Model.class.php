@@ -16,6 +16,9 @@ class Model extends DB {
     protected  function  add($_addData){
         return $this->_db->add($_addData);
     }
+    protected  function  delete($_deleteData){
+         return $this->_db->delete($_deleteData);
+    }
     protected function isOne($_where) {
         return $this->_db->isOne($_where);
     }

@@ -11,6 +11,7 @@ class TPL extends  Smarty{
             parent::__construct();
             $this->setTemplateDir('view/');
             $this->caching=0;
+        
     }
 
 

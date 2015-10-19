@@ -8,7 +8,7 @@
          parent::__construct($this,$this->_setcheck,$this->_tables);
      }
      public  function  findAll(){
-         return parent::select(array('user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit));
+         return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit));
      }
      public function total(){
          return parent::total();
@@ -19,6 +19,12 @@
          $_addData['last_ip'] = Tool::getIP();
          $_addData['reg_time'] = Tool::getDate();
          return parent::add($_addData, $this->_tables);
+     }
+     public  function  delete($b=0){
+         $_deleteData = $this->_request->delete($this->_fields);
+         return parent::delete($_deleteData);
+
+
      }
      public  function  isOne($_where,$b=0) {
          return parent::isOne($_where,$this->_tables);

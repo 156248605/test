@@ -43,6 +43,17 @@ class DB {
         $_sql="SELECT id FROM {$this->_tables[0]} WHERE $_isAnd LIMIT 1";
         return $this->execute($_sql)->rowCount();
     }
+    //删除一条数据
+    protected  function  delete($_deleteData){
+        $_isAnd = '';
+        foreach ($_deleteData as $_key=>$_value){
+            $_isAnd .= "$_key='$_value' AND ";
+        }
+        $_isAnd = substr($_isAnd,0,-4);
+        $_sql = "DELETE FROM {$this->_tables[0]} WHERE $_isAnd LIMIT 1";
+        return $this->execute($_sql)->rowCount();
+
+    }
     //返回所有数据
     protected  function   select($_fileld,$_param=array()){
         //$_sql="SELECT user,level,login_count,last_ip,last_time FROM $_tables[0] limit {$_limit}";

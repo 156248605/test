@@ -25,7 +25,7 @@ class Request {
 	
 	//私有构造
 	private function __construct() {}
-	
+
 	//处理新增数据请求
 	public function add($_fields) {
 		$_addData = array();
@@ -44,4 +44,34 @@ class Request {
 		}
 		return $_addData;
  	}
+    //处理删除数据请求
+    public  function delete($_fields){
+        $_deleteData = array();
+        if(Validate::isArray($_GET) && !Validate::isNullArray($_GET)){
+            $_deleteData = $this->selectData($_GET,$_fields);
+            if (!$this->_check->deleteCheck($this->_model, $_deleteData)) $this->check();
+        }
+            return $_deleteData;
+
+
+    }
+     //筛选数据
+    private  function  selectData($_requestData,$_fields) {
+        $_selectData = array();
+        foreach ($_requestData as $_key=>$_value){
+            if(Validate::inArray($_key,$_fields)){
+                $_selectData[$_key] = $_value;
+            }
+        }
+        return $_selectData;
+    }
+    private  function  check() {
+        $this->_tpl->assign('message', $this->_check->getMessage());
+        $this->_tpl->assign('prev', Tool::getPrevPage());
+        $this->_tpl->display(SMARTY_ADMIN.'public/error.html');
+        exit();
+
+
+    }
+
 }

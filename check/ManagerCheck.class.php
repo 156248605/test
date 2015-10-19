@@ -34,6 +34,15 @@ class ManagerCheck extends  Check{
         }
         return $this->_flag;
     }
+    public  function  deleteCheck(&$_model,$_requestData){
+        if(!$_model->isOne($_requestData)){
+            $this->_message[] = '找不到将要删除的管理员！';
+            $this->_flag = false;
+        }
+         return $this->_flag;
+
+
+    }
     public  function  ajax(&$_model){
          echo $_model->isOne(array('user'=>$_POST['user'])) ?1:2;
     }
