@@ -6,7 +6,11 @@
          parent::__construct();
      }
      public  function  findAll(){
-         return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit));
+         return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit,'order'=>'reg_time DESC'));
+     }
+     public  function  findOne(){
+         return parent::select(array('id','user','level'),array('where'=>array('id'=>'40'), 'limit'=>'1'));
+
      }
      public function total(){
          return parent::total();
@@ -21,8 +25,6 @@
      public  function  delete($b=0){
          $_deleteData = $this->_request->delete($this->_fields);
          return parent::delete($_deleteData);
-
-
      }
      public  function  isOne($_where) {
          return parent::isOne($_where);

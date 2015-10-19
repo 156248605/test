@@ -5,7 +5,7 @@ class ManagerAction extends  Action{
         parent::__construct();
     }
     public  function  index(){
-        parent::page($this->_model->total());
+        parent::page();
         $this->_tpl->assign('AllManager',$this->_model->findAll());
         $this->_tpl->display(SMARTY_ADMIN.'manager/manager.html');
     }
@@ -26,7 +26,11 @@ class ManagerAction extends  Action{
     }
     //修改管理员
     public function update() {
-        $this->_tpl->display(SMARTY_ADMIN.'manager/update.html');
+         if (isset($_GET['id'])){
+             $this->_tpl->assign('OneManage',$this->_model->findOne());
+             $this->_tpl->display(SMARTY_ADMIN.'manager/update.html');
+         }
+
     }
     //ajax
     public  function  ajax($b=0){

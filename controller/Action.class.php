@@ -10,8 +10,8 @@ class Action {
              $this->_check = Factory::setCheck();
              $this->_redirect = Redirect::getInstance($this->_tpl);
     }
-    protected  function  page($_total,$_pagesize = PAGE_SIZE){
-        $_page = new Page($_total,$_pagesize);
+    protected  function  page($_pagesize = PAGE_SIZE){
+        $_page = new Page($this->_model->total(),$_pagesize);
         $this->_model->setLimit($_page->getLimit());
         $this->_tpl->assign('page',$_page->showpage());
         $this->_tpl->assign('num',($_page->getPage()-1)*$_pagesize);

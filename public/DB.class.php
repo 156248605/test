@@ -56,13 +56,22 @@ class DB {
     }
     //返回所有数据
     protected  function   select($_fileld,$_param=array()){
-        //$_sql="SELECT user,level,login_count,last_ip,last_time FROM $_tables[0] limit {$_limit}";
         $_limit = '';
+        $_order = '';
+        $_where = '';
         if(Validate::isArray($_param) && !Validate::isNullArray($_param)){
-            $_limit = isset($_param['limit'])?$_param['limit'] : '';
+            $_limit = isset($_param['limit']) ? 'LIMIT '.$_param['limit'] : '';
+            $_order = isset($_param['order']) ? 'ORDER BY '.$_param['order'] : '';
+            if (isset($_param['where'])) {
+                $_isAnd = '';
+                foreach ($_param['where'] as $_key=>$_value) {
+                    $_isAnd .= "$_key='$_value' AND ";
+                }
+                $_where = 'WHERE '.substr($_isAnd, 0, -4);
+            }
         }
         $_selectFields = implode(',',$_fileld);
-        $_sql = "SELECT $_selectFields FROM {$this->_tables[0]} $_limit";
+        $_sql = "SELECT $_selectFields FROM {$this->_tables[0]} $_where $_order $_limit";
         $_isAll=$this->execute($_sql);
         $_result=array();
         while(!!$row=$_isAll->fetchObject()){
