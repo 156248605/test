@@ -4,10 +4,10 @@ class Action {
     protected  $_model= null;
     protected  $_check = null;
     protected  $_redirect = null;
-    protected function  __construct(&$_model=null,&$_check = null){
+    protected function  __construct(){
              $this->_tpl=TPL::getinstance();
-             $this->_model =$_model;
-             $this->_check = $_check;
+             $this->_model =Factory::setModel();
+             $this->_check = Factory::setCheck();
              $this->_redirect = Redirect::getInstance($this->_tpl);
     }
     protected  function  page($_total,$_pagesize = PAGE_SIZE){

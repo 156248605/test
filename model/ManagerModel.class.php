@@ -1,11 +1,9 @@
 <?php
  class ManagerModel extends  Model{
-     public  $_setcheck=null;
      public function  __construct(){
-         $this->_setcheck=Factory::setCheck();
          $this->_fields = array('id','user','pass','level','login_count','last_ip','last_time','reg_time');
          $this->_tables = array(DB_FREFIX.'manager');
-         parent::__construct($this,$this->_setcheck,$this->_tables);
+         parent::__construct();
      }
      public  function  findAll(){
          return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit));

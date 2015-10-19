@@ -1,12 +1,8 @@
 <?php
 //管理员控制器
 class ManagerAction extends  Action{
-    public  $_setmodel=null;
-    public  $_setcheck=null;
     public  function  __construct(){
-        $this->_setmodel=Factory::setModel();
-        $this->_setcheck=Factory::setCheck();
-        parent::__construct($this->_setmodel,$this->_setcheck);
+        parent::__construct();
     }
     public  function  index(){
         parent::page($this->_model->total());
