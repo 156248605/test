@@ -72,7 +72,10 @@ dl.form input.submit {
     height:29px;
     line-height:29px;
     text-align:center;
-    background:#F4FAFB;
+   /* background:#F4FAFB;*/
+}
+#list table tr:hover{
+    background:url(../images/th_bg.gif); ;
 }
 #page {
     text-align:center;

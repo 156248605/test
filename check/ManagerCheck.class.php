@@ -34,14 +34,34 @@ class ManagerCheck extends  Check{
         }
         return $this->_flag;
     }
+    public function updateCheck(&$_model, $_requestData) {
+        if (self::checkStrLength($_requestData['pass'], 6, 'min')) {
+            $this->_message[] = '管理员密码不得小于6位！';
+            $this->_flag = false;
+        }
+        if (!self::checkStrEquals($_requestData['pass'], $_requestData['notpass'])) {
+            $this->_message[] = '管理员密码和确认密码必须保持一致！';
+            $this->_flag = false;
+        }
+        if (self::isNullString($_requestData['level'])) {
+            $this->_message[] = '管理员等级权限必须选择！';
+            $this->_flag = false;
+        }
+        return $this->_flag;
+    }
     public  function  deleteCheck(&$_model,$_requestData){
         if(!$_model->isOne($_requestData)){
             $this->_message[] = '找不到将要删除的管理员！';
             $this->_flag = false;
         }
          return $this->_flag;
-
-
+    }
+    public  function  oneCheck(&$_model, $_requestData){
+        if (!$_model->isOne($_requestData)) {
+            $this->_message[] = '找不到将要修改的管理员！';
+            $this->_flag = false;
+        }
+        return $this->_flag;
     }
     public  function  ajax(&$_model){
          echo $_model->isOne(array('user'=>$_POST['user'])) ?1:2;

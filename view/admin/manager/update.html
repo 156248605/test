@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="view/admin/style/basic.css">
     <link rel="stylesheet" href="view/admin/style/manager.css">
-    <title></title>
+    <script type="text/javascript" src="view/admin/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="view/admin/js/update.js"></script>
+    <title>在线商城后台管理</title>
 </head>
 <body>
 <h2><a href="?a=manager">返回管理员列表</a>系统 -- 修改管理员</h2>
-
-<form method="post" name="update" action="?a=manager&m=update">
+<form method="post" name="update" action="?a=manager&m=update&id={$OneManage[0]->id}">
     <input type="hidden" name="flag" id="flag" />
     <dl class="form">
         <dd>用 户 名：{$OneManage[0]->user}</dd>
@@ -38,7 +39,7 @@
             <option value="4">订单处理专员</option>
             {/if}
         </select> ( * 必须选定一个权限 )</dd>
-        <dd><input type="submit" name="send" onclick="return updateManage();" value="修改管理员" class="submit" /></dd>
+        <dd><input type="submit" name="send"  value="修改管理员" class="submit" /></dd>
     </dl>
 </form>
 </body>

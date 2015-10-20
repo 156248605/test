@@ -44,6 +44,15 @@ class Request {
 		}
 		return $_addData;
  	}
+    //处理修改数据请求
+    public function update($_fields) {
+        $_updateData = array();
+        if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
+            if (!$this->_check->updateCheck($this->_model, $_POST)) $this->check();
+            $_updateData = $this->selectData($_POST, $_fields);
+        }
+        return $_updateData;
+    }
     //处理删除数据请求
     public  function delete($_fields){
         $_deleteData = array();
@@ -54,6 +63,14 @@ class Request {
             return $_deleteData;
 
 
+    }
+    public  function  one($_fields){
+        $_oneData = array();
+        if(Validate::isArray($_GET)&&!Validate::isNullArray($_GET)){
+            $_oneData = $this->selectData($_GET,$_fields);
+            if (!$this->_check->oneCheck($this->_model, $_oneData)) $this->check();
+        }
+        return $_oneData;
     }
      //筛选数据
     private  function  selectData($_requestData,$_fields) {
