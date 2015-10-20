@@ -1,11 +1,16 @@
 <?php
 //管理员控制器
 class ManagerAction extends  Action{
+    private  $_level = null;
     public  function  __construct(){
+        $this->_level = new LevelModel();
         parent::__construct();
+
     }
     public  function  index(){
+        print_r($this->_level->findAll());
         parent::page();
+
         $this->_tpl->assign('AllManager',$this->_model->findAll());
         $this->_tpl->display(SMARTY_ADMIN.'manager/manager.html');
     }
