@@ -12,17 +12,17 @@
          $_oneData = $this->_request->one($this->_fields);
          return parent::select(array('id','user','level'),array('where'=>$_oneData, 'limit'=>'1'));
      }
-     public function total(){
+     public function total($b=0){
          return parent::total();
      }
-     public  function  add($_request){
+     public  function  add($_request,$b=0){
          $_addData = $_request->add($this->_fields);
          $_addData['pass'] = sha1($_addData['pass']);
          $_addData['last_ip'] = Tool::getIP();
          $_addData['reg_time'] = Tool::getDate();
          return parent::add($_addData);
      }
-     public  function  update($a=0,$b=0){
+     public  function  update($a=0,$b=0,$c=0){
          $_oneData = $this->_request->one($this->_fields);
          $_updateData = $this->_request->update($this->_fields);
          $_updateData['pass'] = sha1($_updateData['pass']);
@@ -31,11 +31,11 @@
 
 
      }
-     public  function  delete($b=0){
+     public  function  delete($b=0,$a=0){
          $_deleteData = $this->_request->delete($this->_fields);
          return parent::delete($_deleteData);
      }
-     public  function  isOne($_where) {
+     public  function  isOne($_where,$b=0) {
          return parent::isOne($_where);
      }
 

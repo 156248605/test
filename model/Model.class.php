@@ -8,27 +8,27 @@ class Model extends DB {
     protected $_request = null;
     protected $_limit = '';
     protected  function  __construct(){
-        $this->_db = parent::getInstance($this->_tables);
+        $this->_db = parent::getInstance();
         $this->_check = Factory::setCheck();
         $this->_request = Request::getInstance($this,$this->_check);
     }
-    protected  function  add($_addData){
-        return $this->_db->add($_addData);
+    protected  function  add($_addData,$b=0){
+        return $this->_db->add($this->_tables,$_addData);
     }
-    protected  function update($_oneData,$_updateData){
-        return $this->_db->update($_oneData,$_updateData);
+    protected  function update($_oneData,$_updateData,$b=0){
+        return $this->_db->update($this->_tables,$_oneData,$_updateData);
     }
-    protected  function  delete($_deleteData){
-         return $this->_db->delete($_deleteData);
+    protected  function  delete($_deleteData,$b=0){
+         return $this->_db->delete($this->_tables,$_deleteData);
     }
-    protected function isOne($_where) {
-        return $this->_db->isOne($_where);
+    protected function isOne($_where,$b=0) {
+        return $this->_db->isOne($this->_tables,$_where);
     }
-    protected  function  select($_field, $_param = array()){
-        return $this->_db->select($_field,$_param);
+    protected  function  select($_field, $_param = array(),$b=0){
+        return $this->_db->select($this->_tables,$_field,$_param);
     }
-    protected function total() {
-        return $this->_db->total();
+    protected function total($b=0) {
+        return $this->_db->total($this->_tables);
     }
     public  function setLimit($_limit){
         $this->_limit = $_limit;
