@@ -1,5 +1,5 @@
 <?php
- class ManagerModel extends  Model{
+class ManagerModel extends  Model{
      public function  __construct(){
          $this->_fields = array('id','user','pass','level','login_count','last_ip','last_time','reg_time');
          $this->_tables = array(DB_FREFIX.'manager');
@@ -27,9 +27,6 @@
          $_updateData = $this->_request->update($this->_fields);
          $_updateData['pass'] = sha1($_updateData['pass']);
          return parent::update($_oneData, $_updateData);
-
-
-
      }
      public  function  delete($b=0,$a=0){
          $_deleteData = $this->_request->delete($this->_fields);
@@ -38,5 +35,4 @@
      public  function  isOne($_where,$b=0) {
          return parent::isOne($_where);
      }
-
  }
