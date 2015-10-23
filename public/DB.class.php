@@ -41,7 +41,7 @@ class DB {
             $_setData .= "$_key='$_value',";
         }
         $_setData = substr($_setData, 0, -1);
-        $_sql = "UPDATE $_tables[0]} SET $_setData WHERE $_isAnd LIMIT 1";
+        $_sql = "UPDATE $_tables[0] SET $_setData WHERE $_isAnd LIMIT 1";
         return $this->execute($_sql)->rowCount();
 
     }
@@ -68,22 +68,22 @@ class DB {
     }
     //返回所有数据
     protected  function   select($_tables,$_fileld,$_param=array()){
-        $_limit = '';
-        $_order = '';
-        $_where = '';
+        $_limit = $_order = $_where = $_isAnd = $_table = '';
         if(Validate::isArray($_param) && !Validate::isNullArray($_param)){
             $_limit = isset($_param['limit']) ? 'LIMIT '.$_param['limit'] : '';
             $_order = isset($_param['order']) ? 'ORDER BY '.$_param['order'] : '';
-            if (isset($_param['where'])) {
-                $_isAnd = '';
+            if (isset($_param['where'])&&Validate::isArray($_param['where'])) {
                 foreach ($_param['where'] as $_key=>$_value) {
                     $_isAnd .= "$_key='$_value' AND ";
                 }
                 $_where = 'WHERE '.substr($_isAnd, 0, -4);
+            }else{
+                $_where = 'WHERE '.$_param['where'];
             }
         }
         $_selectFields = implode(',',$_fileld);
-        $_sql = "SELECT $_selectFields FROM $_tables[0] $_where $_order $_limit";
+        $_table = isset($_tables[1]) ? $_tables[0].','.$_tables[1] : $_tables[0];
+        $_sql = "SELECT $_selectFields FROM $_table $_where $_order $_limit";
         $_isAll=$this->execute($_sql);
         $_result=array();
         while(!!$row=$_isAll->fetchObject()){

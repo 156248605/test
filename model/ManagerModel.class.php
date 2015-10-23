@@ -6,7 +6,8 @@ class ManagerModel extends  Model{
          $this->_tables = array(DB_FREFIX.'manager');
      }
      public  function  findAll(){
-         return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit,'order'=>'reg_time DESC'));
+         $this->_tables = array(DB_FREFIX.'manager a',DB_FREFIX.'level b');
+         return parent::select(array('a.id','a.user','a.level','a.login_count','a.last_ip','a.last_time','b.level_name'),array('where'=>'a.level=b.id','limit'=>$this->_limit,'order'=>'a.reg_time DESC'));
      }
      public  function  findOne(){
          $_oneData = $this->getRequest()->one($this->_fields);
@@ -23,8 +24,8 @@ class ManagerModel extends  Model{
          return parent::add($_addData);
      }
      public  function  update($a=0,$b=0,$c=0){
-         $_oneData = $this->_request->one($this->_fields);
-         $_updateData = $this->_request->update($this->_fields);
+         $_oneData = $this->getRequest()->one($this->_fields);
+         $_updateData = $this->getRequest()->update($this->_fields);
          $_updateData['pass'] = sha1($_updateData['pass']);
          return parent::update($_oneData, $_updateData);
      }
