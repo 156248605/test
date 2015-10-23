@@ -4,13 +4,12 @@ class ManagerModel extends  Model{
          parent::__construct();
          $this->_fields = array('id','user','pass','level','login_count','last_ip','last_time','reg_time');
          $this->_tables = array(DB_FREFIX.'manager');
-         $this->_request = Request::getInstance($this,$this->_check);
      }
      public  function  findAll(){
          return parent::select(array('id','user','level','login_count','last_ip','last_time'),array('limit'=>$this->_limit,'order'=>'reg_time DESC'));
      }
      public  function  findOne(){
-         $_oneData = $this->_request->one($this->_fields);
+         $_oneData = $this->getRequest()->one($this->_fields);
          return parent::select(array('id','user','level'),array('where'=>$_oneData, 'limit'=>'1'));
      }
      public function total($b=0){

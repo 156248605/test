@@ -5,10 +5,6 @@ class ManagerAction extends  Action{
     public  function  __construct(){
         parent::__construct();
         $this->_level = new LevelModel();
-
-
-
-
     }
     public  function  index(){
         parent::page();

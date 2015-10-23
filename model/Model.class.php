@@ -29,6 +29,10 @@ class Model extends DB {
     protected function total($b=0) {
         return $this->_db->total($this->_tables);
     }
+    protected  function  getRequest(){
+        return Request::getInstance($this,$this->_check);
+
+    }
     public  function setLimit($_limit){
         $this->_limit = $_limit;
     }
