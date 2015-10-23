@@ -3,9 +3,11 @@
 class ManagerAction extends  Action{
     private  $_level = null;
     public  function  __construct(){
-
-        $this->_level = new LevelModel();
         parent::__construct();
+        $this->_level = new LevelModel();
+
+
+
 
     }
     public  function  index(){

@@ -10,7 +10,6 @@ class Model extends DB {
     protected  function  __construct(){
         $this->_db = parent::getInstance();
         $this->_check = Factory::setCheck();
-        $this->_request = Request::getInstance($this,$this->_check);
     }
     protected  function  add($_addData,$b=0){
         return $this->_db->add($this->_tables,$_addData);
