@@ -1,49 +1,50 @@
-<?php /* Smarty version 3.1.27, created on 2015-10-24 17:17:04
-         compiled from "view\admin\public\error.html" */ ?>
+<?php /* Smarty version 3.1.27, created on 2015-10-24 17:16:32
+         compiled from "view\admin\public\succ.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:31318562b4c9063c0b0_96107886%%*/
+/*%%SmartyHeaderCode:23665562b4c70b1ba94_34292504%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '23a25bfe70b00b969f83a5c052af633b50b8c9b1' => 
+    '9e904f468cf47a93e8ad646076a1698bf252a5ec' => 
     array (
-      0 => 'view\\admin\\public\\error.html',
-      1 => 1444733941,
+      0 => 'view\\admin\\public\\succ.html',
+      1 => 1445161678,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '31318562b4c9063c0b0_96107886',
+  'nocache_hash' => '23665562b4c70b1ba94_34292504',
   'variables' => 
   array (
+    'url' => 0,
     'message' => 0,
     'key' => 0,
     'value' => 0,
-    'prev' => 0,
   ),
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_562b4c90681524_78016576',
+  'unifunc' => 'content_562b4c70b63f72_98964391',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_562b4c90681524_78016576')) {
-function content_562b4c90681524_78016576 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_562b4c70b63f72_98964391')) {
+function content_562b4c70b63f72_98964391 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '31318562b4c9063c0b0_96107886';
+$_smarty_tpl->properties['nocache_hash'] = '23665562b4c70b1ba94_34292504';
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1;url=<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+" />
     <link rel="stylesheet" href="view/admin/style/basic.css">
-    <link rel="stylesheet" href="view/admin/style/error.css">
+    <link rel="stylesheet" href="view/admin/style/succ.css">
     <title>在线商城后台管理</title>
 </head>
 <body>
-<h2>错误 -- 提示页</h2>
+<h2>成功 -- 提示页</h2>
 
-<div id="list" class="error">
+<div id="list" class="succ">
     <?php
 $_from = $_smarty_tpl->tpl_vars['message']->value;
 if (!is_array($_from) && !is_object($_from)) {
@@ -63,10 +64,9 @@ $foreach_value_Sav = $_smarty_tpl->tpl_vars['value'];
 $_smarty_tpl->tpl_vars['value'] = $foreach_value_Sav;
 }
 ?>
-    <p><a href="<?php echo $_smarty_tpl->tpl_vars['prev']->value;?>
-">[返回]</a></p>
+    <p><a href="<?php echo $_smarty_tpl->tpl_vars['url']->value;?>
+">[如果浏览器没有及时跳转，请点击这里]</a></p>
 </div>
-
 </body>
 </html><?php }
 }

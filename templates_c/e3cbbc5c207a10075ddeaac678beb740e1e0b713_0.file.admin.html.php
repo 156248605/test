@@ -1,7 +1,7 @@
-<?php /* Smarty version 3.1.27, created on 2015-10-09 11:59:38
+<?php /* Smarty version 3.1.27, created on 2015-10-24 11:19:18
          compiled from "view\admin\public\admin.html" */ ?>
 <?php
-/*%%SmartyHeaderCode:2091256173baa7b1db7_72609071%%*/
+/*%%SmartyHeaderCode:11008562af8b6902b24_54410093%%*/
 if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
@@ -9,20 +9,20 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'e3cbbc5c207a10075ddeaac678beb740e1e0b713' => 
     array (
       0 => 'view\\admin\\public\\admin.html',
-      1 => 1444361638,
+      1 => 1445656755,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '2091256173baa7b1db7_72609071',
+  'nocache_hash' => '11008562af8b6902b24_54410093',
   'has_nocache_code' => false,
   'version' => '3.1.27',
-  'unifunc' => 'content_56173baa7ffe56_02179344',
+  'unifunc' => 'content_562af8b69438c9_94892889',
 ),false);
 /*/%%SmartyHeaderCode%%*/
-if ($_valid && !is_callable('content_56173baa7ffe56_02179344')) {
-function content_56173baa7ffe56_02179344 ($_smarty_tpl) {
+if ($_valid && !is_callable('content_562af8b69438c9_94892889')) {
+function content_562af8b69438c9_94892889 ($_smarty_tpl) {
 
-$_smarty_tpl->properties['nocache_hash'] = '2091256173baa7b1db7_72609071';
+$_smarty_tpl->properties['nocache_hash'] = '11008562af8b6902b24_54410093';
 ?>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -55,7 +55,7 @@ $_smarty_tpl->properties['nocache_hash'] = '2091256173baa7b1db7_72609071';
  <div id="sidebar">
      <dl style="display:block">
          <dt>商品</dt>
-         <dd><a href="###">商品1</a></dd>
+         <dd><a href="?a=nav" target="in">导航条列表</a></dd>
          <dd><a href="###">商品2</a></dd>
          <dd><a href="###">商品3</a></dd>
      </dl>

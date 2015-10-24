@@ -47,6 +47,12 @@ dl.form select {
     background:#fff;
     height:22px;
 }
+dl.form textarea{
+
+    border:1px solid #666;
+    background:#fff;
+
+}
 dl.form input.submit {
     cursor:pointer;
 }

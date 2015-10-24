@@ -29,6 +29,11 @@ class Model extends DB {
     protected function total($b=0) {
         return $this->_db->total($this->_tables);
     }
+    protected function  nextId($b=0){
+        return $this->_db->nextId($this->_tables);
+
+
+    }
     protected  function  getRequest(){
         return Request::getInstance($this,$this->_check);
 

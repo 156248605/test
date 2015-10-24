@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="view/admin/style/basic.css">
+    <link rel="stylesheet" href="view/admin/style/nav.css">
+    <title>在线商城后台管理</title>
+</head>
+<body>
+<h2><a href="?a=nav">返回导航条列表</a>系统 -- 修改导航条</h2>
+<form method="post" action="?a=nav&m=update">
+    <input type="hidden" name="flag" id="flag" />
+    <dl class="form">
+        <dd>名 称：<input type="text" name="user" class="text" /> ( * 2-4位之间 )</dd>
+        <dd>简 介：<textarea name="info"></textarea></dd>
+        <dd><input type="submit" name="send" value="修改导航条" class="submit" /></dd>
+    </dl>
+</form>
+</body>
+</html>

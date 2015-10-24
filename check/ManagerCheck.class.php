@@ -2,7 +2,7 @@
 class ManagerCheck extends  Check{
     //用户名不得包含指定的非法词组，敏感词
     //密码不能纯数字，纯字母，或者必须包含特殊字符，或者必须大小写混拼
-    public  function  check(&$_model)
+    public  function  addcheck(&$_model)
     {
         if (self::isNullString($this->_data['user'])) {
             $this->_message[] = '管理员用户名不得为空!';

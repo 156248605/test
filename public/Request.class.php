@@ -30,7 +30,7 @@ class Request {
 	public function add($_fields) {
 		$_addData = array();
 		if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-			if (!$this->_check->check($this->_model)) {
+			if (!$this->_check->addcheck($this->_model)) {
                 $this->_tpl->assign('message', $this->_check->getMessage());
                 $this->_tpl->assign('prev', Tool::getPrevPage());
                 $this->_tpl->display(SMARTY_ADMIN.'public/error.html');
