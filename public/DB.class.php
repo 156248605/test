@@ -77,7 +77,7 @@ class DB {
                     $_isAnd .= "$_key='$_value' AND ";
                 }
                 $_where = 'WHERE '.substr($_isAnd, 0, -4);
-            }else{
+            }elseif (isset($_param['where'])){
                 $_where = 'WHERE '.$_param['where'];
             }
         }

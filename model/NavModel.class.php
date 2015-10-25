@@ -18,4 +18,10 @@ class NavModel extends  Model
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
     }
+    public  function  findAll(){
+        return parent::select(array('id','name','info','sort','sid'),array('limit'=>$this->_limit,'order'=>'sort ASC'));
+    }
+    public function total($b=0){
+        return parent::total();
+    }
 }

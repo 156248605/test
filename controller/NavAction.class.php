@@ -13,9 +13,9 @@ class NavAction extends  Action
         parent::__construct();
     }
     public  function  index(){
+        parent::page();
+        $this->_tpl->assign('AllNav',$this->_model->findAll());
         $this->_tpl->display(SMARTY_ADMIN.'nav/show.html');
-
-
     }
 
     public  function  add(){
