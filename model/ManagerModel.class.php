@@ -30,7 +30,7 @@ class ManagerModel extends  Model{
          return parent::update($_oneData, $_updateData);
      }
      public  function  delete($b=0,$a=0){
-         $_deleteData = $this->_request->delete($this->_fields);
+         $_deleteData = $this->getRequest()->delete($this->_fields);
          return parent::delete($_deleteData);
      }
      public  function  isOne($_where,$b=0) {

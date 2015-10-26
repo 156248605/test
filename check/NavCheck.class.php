@@ -25,6 +25,34 @@ class NavCheck extends Check {
             $this->_message[] = '导航简介不得大于200位！';
             $this->_flag = false;
         }
+        if ($_model->isOne(array('name'=>$this->_data['name']))){
+            $this->_message[] = '导航名被占用！';
+            $this->_flag = false;
+        }
         return $this->_flag;
+    }
+    public  function  delete(&$_model,$_requestData){
+        if(!$_model->isOne($_requestData)){
+            $this->_message[] = '找不到将要删除的导航！';
+            $this->_flag = false;
+        }
+        return $this->_flag;
+    }
+    public function updateCheck(&$_model, $_requestData) {
+        if (self::checkStrLength($_requestData['info'], 200, 'max')) {
+            $this->_message[] = '导航简介不得大于200位！';
+            $this->_flag = false;
+        }
+        return $this->_flag;
+    }
+    public  function  oneCheck(&$_model, $_requestData){
+        if (!$_model->isOne($_requestData)) {
+            $this->_message[] = '找不到将要修改的导航名称！';
+            $this->_flag = false;
+        }
+        return $this->_flag;
+    }
+    public  function  ajax(&$_model){
+        echo $_model->isOne(array('name'=>$_POST['name'])) ?1:2;
     }
 }

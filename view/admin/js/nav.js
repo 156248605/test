@@ -1,8 +1,8 @@
 $(function () {
     $('input[name=send]').on('click',function(){
-
         var user=$('input[name=name]').val();
         var info = $('#info').val();
+        var flag = $('input[name=flag]').val();
         if (user == '') {
             alert('导航名称不得为空！');
             $('input[name=name]').focus();
@@ -28,7 +28,26 @@ $(function () {
             $('#info').focus();
             return false;
         }
+        if (flag!=''){
+            alert('导入名称被占用！');
+            $('input[name=name]').focus();
+            return false;
+        }
         return true;
     });
+    $('input[name=name]').on('blur',function(){
+        $.ajax({
+            type:"POST",
+            url:"?a=nav&m=ajax",
+            data:{name:$('input[name=name]').val()},
+            success:function(data){
+                if(data==1){
+                    $('input[name=flag]').val('true');
+                }else{
+                    $('input[name=flag]').val('');
+                }
 
+            }
+        });
+    });
     })

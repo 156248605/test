@@ -21,7 +21,23 @@ class NavModel extends  Model
     public  function  findAll(){
         return parent::select(array('id','name','info','sort','sid'),array('limit'=>$this->_limit,'order'=>'sort ASC'));
     }
+    public  function  findOne(){
+        $_oneData = $this->getRequest()->one($this->_fields);
+        return parent::select(array('id','name','info'),array('where'=>$_oneData, 'limit'=>'1'));
+    }
     public function total($b=0){
         return parent::total();
+    }
+    public  function  delete($b=0,$a=0){
+        $_deleteData = $this->getRequest()->delete($this->_fields);
+        return parent::delete($_deleteData);
+    }
+    public  function  isOne($_where,$b=0) {
+        return parent::isOne($_where);
+    }
+    public  function  update($a=0,$b=0,$c=0){
+        $_oneData = $this->getRequest()->one($this->_fields);
+        $_updateData = $this->getRequest()->update($this->_fields);
+        return parent::update($_oneData, $_updateData);
     }
 }
