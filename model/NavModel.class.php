@@ -7,11 +7,13 @@
  */
 class NavModel extends  Model
 {
+    private  $_sid = 0;
     public function  __construct()
     {
         parent::__construct();
         $this->_fields = array('id', 'name', 'info','sort','sid');
         $this->_tables = array(DB_FREFIX . 'nav');
+        $this->_sid = isset($_GET['sid']) ? $_GET['sid'] : 0;
     }
     public function add($_addData,$b=0) {
         $_addData = $this->getRequest()->add($this->_fields);
@@ -19,9 +21,12 @@ class NavModel extends  Model
         return parent::add($_addData);
     }
     public  function  findAll(){
-        return parent::select(array('id','name','info','sort','sid'),array('limit'=>$this->_limit,'order'=>'sort ASC'));
+        return parent::select(array('id','name','info','sort','sid'),array('where'=>array('sid'=>$this->_sid),'limit'=>$this->_limit,'order'=>'sort ASC'));
     }
     public  function  findOne(){
+        if(isset($_GET['sid'])){
+            return parent::select(array('id','name','info'),array('where'=>array('id'=>$this->_sid),'limit'=>'1'));
+        }
         $_oneData = $this->getRequest()->one($this->_fields);
         return parent::select(array('id','name','info'),array('where'=>$_oneData, 'limit'=>'1'));
     }

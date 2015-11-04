@@ -14,13 +14,15 @@ class NavAction extends  Action
     }
     public  function  index(){
         parent::page();
+        if(isset($_GET['sid'])) $this->_tpl->assign('OneNav',$this->_model->findOne());
         $this->_tpl->assign('AllNav',$this->_model->findAll());
         $this->_tpl->display(SMARTY_ADMIN.'nav/show.html');
     }
 
     public  function  add(){
         if (isset($_POST['send']))$this->_model->add(Request::getInstance($this->_model,$this->_check))?Redirect::getInstance($this->_tpl)->succ('?a=nav','导航新增成功！'): Redirect::getInstance($this->_tpl)->error('导航新增失败!');
-        $this->_tpl->display(SMARTY_ADMIN.'nav/add.html');
+        if (isset($_GET['id'])) $this->_tpl->assign('OneNav',$this->_model->findOne());
+        $this->_tpl->display(SMARTY_ADMIN . 'nav/add.html');
     }
     public function update(){
         if (isset($_POST['send'])) $this->_model->update() ? $this->_redirect->succ(Tool::getPrevPage(), '管理员修改成功！') : $this->_redirect->error('管理员修改失败！');
