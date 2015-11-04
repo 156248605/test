@@ -40,4 +40,11 @@ class NavModel extends  Model
         $_updateData = $this->getRequest()->update($this->_fields);
         return parent::update($_oneData, $_updateData);
     }
+    public  function  sort(){
+        foreach ($_POST['sort'] as $_key=>$_value) {
+            if (!is_numeric($_value)) continue;
+            parent::update(array('id' => $_key), array('sort' => $_value));
+        }
+            return true;
+    }
 }

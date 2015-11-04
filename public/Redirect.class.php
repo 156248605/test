@@ -21,10 +21,14 @@ class Redirect {
     //私有构造
     private function __construct() {}
     //成功跳转
-    public function succ($_url, $_info) {
-        $this->_tpl->assign('message', $_info);
-        $this->_tpl->assign('url', $_url);
-        $this->_tpl->display(SMARTY_ADMIN.'public/succ.html');
+    public function succ($_url, $_info='') {
+        if(!empty($_info)) {
+            $this->_tpl->assign('message', $_info);
+            $this->_tpl->assign('url', $_url);
+            $this->_tpl->display(SMARTY_ADMIN . 'public/succ.html');
+        }else {
+            header('Location:'.$_url);
+        }
         exit();
     }
     //失败返回

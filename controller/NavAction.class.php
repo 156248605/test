@@ -32,6 +32,11 @@ class NavAction extends  Action
     public function  delete(){
         if (isset($_GET['id'])) $this->_model->delete() ? $this->_redirect->succ(Tool::getPrevPage(), '导航名称删除成功！') : $this->_redirect->error('导航名称删除失败！');
     }
+    public function  sort(){
+        if (isset($_POST['send'])) $this->_model->sort()?$this->_redirect->succ(Tool::getPrevPage()):$this->_redirect->error('排序失败！');
+
+
+    }
     //ajax
     public  function  ajax($b=0){
         $this->_check->ajax($this->_model);
