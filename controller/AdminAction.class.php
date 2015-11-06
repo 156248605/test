@@ -11,7 +11,8 @@ class AdminAction extends  Action{
    public  function  main(){
 
        $this->_tpl->display(SMARTY_ADMIN.'public/main.html');
-
-
    }
+    public  function  login(){
+        $this->_tpl->display(SMARTY_ADMIN.'public/login.html');
+    }
 }
