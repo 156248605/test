@@ -4,6 +4,7 @@ class ManagerModel extends  Model{
          parent::__construct();
          $this->_fields = array('id','user','pass','level','login_count','last_ip','last_time','reg_time');
          $this->_tables = array(DB_FREFIX.'manager');
+         $this->_check = new ManagerCheck();
      }
      public  function  findAll(){
          $this->_tables = array(DB_FREFIX.'manager a',DB_FREFIX.'level b');
@@ -36,4 +37,9 @@ class ManagerModel extends  Model{
      public  function  isOne($_where,$b=0) {
          return parent::isOne($_where);
      }
+    public  function  login(){
+        return $this->getRequest()->login();
+
+
+    }
  }

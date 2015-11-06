@@ -9,7 +9,6 @@ class Model extends DB {
     protected $_limit = '';
     protected  function  __construct(){
         $this->_db = parent::getInstance();
-        $this->_check = Factory::setCheck();
     }
     protected  function  add($_addData,$b=0){
         return $this->_db->add($this->_tables,$_addData);

@@ -64,6 +64,7 @@ class Request {
 
 
     }
+    //处理一条数据
     public  function  one($_fields){
         $_oneData = array();
         if(Validate::isArray($_GET)&&!Validate::isNullArray($_GET)){
@@ -72,7 +73,15 @@ class Request {
         }
         return $_oneData;
     }
-     //筛选数据
+    //处理登录数据请求
+    public function login() {
+        if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
+            if (!$this->_check->loginCheck($this->_model, $_POST)) $this->check();
+        }
+        return true;
+    }
+
+    //筛选数据
     private  function  selectData($_requestData,$_fields) {
         $_selectData = array();
         foreach ($_requestData as $_key=>$_value){

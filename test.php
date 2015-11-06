@@ -12,7 +12,9 @@ echo $query['a'];*/
 /*require 'public/Page.class.php';
 $_page =new Page(5,10);
 echo $_page->showpage();*/
-$a = 10;
+/*$a = 10;
 $b = 33;
 $c=$b/$a;
-echo $c;
+echo $c;*/
+$charset = 'ABCDEFGHKMNPRSTUVWXYZ23456789';
+echo is_numeric($charset[29]);
