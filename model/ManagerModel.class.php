@@ -14,6 +14,20 @@ class ManagerModel extends  Model{
          $_oneData = $this->getRequest()->one($this->_fields);
          return parent::select(array('id','user','level'),array('where'=>$_oneData, 'limit'=>'1'));
      }
+    public function  findLogin(){
+        $this->_tables = array(DB_FREFIX.'manager a',DB_FREFIX.'level b');
+        return parent::select(array('a.user','b.level_name'),
+                          array('where'=>'a.level=b.id AND a.user='."'{$_POST['user']}'",'limit'=>'1'));
+    }
+    public function  countLogin(){
+         // updat mall_manager set login=login+1,last_ip='',last_time='';
+         $_oneData = array('user'=>$_POST['user']);
+        $_updateData['login_count']=array('login_count+1');
+         $_updateData['last_ip']=Tool::getIP();
+         $_updateData['last_time']=Tool::getDate();
+         parent::update($_oneData,$_updateData);
+
+    }
      public function total($b=0){
          return parent::total();
      }
