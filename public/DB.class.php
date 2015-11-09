@@ -61,13 +61,13 @@ class DB {
         return $this->execute($_sql)->rowCount();
     }
     //删除一条数据
-    protected  function  delete($_tables,$_deleteData){
-        $_isAnd = '';
-        foreach ($_deleteData as $_key=>$_value){
-            $_isAnd .= "$_key='$_value' AND ";
+    protected  function  delete($_tables,array $_param){
+        $_where = '';
+        foreach ($_param as $_key=>$_value){
+            $_where .= $_value.' AND ';
         }
-        $_isAnd = substr($_isAnd,0,-4);
-        $_sql = "DELETE FROM $_tables[0] WHERE $_isAnd LIMIT 1";
+        $_where='WHERE '.substr($_where,0,-4);
+        $_sql = "DELETE FROM $_tables[0] $_where LIMIT 1";
         return $this->execute($_sql)->rowCount();
 
     }

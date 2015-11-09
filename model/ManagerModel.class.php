@@ -44,9 +44,10 @@ class ManagerModel extends  Model{
          $_updateData['pass'] = sha1($_updateData['pass']);
          return parent::update($_oneData, $_updateData);
      }
-     public  function  delete($b=0,$a=0){
-         $_deleteData = $this->getRequest()->delete($this->_fields);
-         return parent::delete($_deleteData);
+     public  function  delete($b=0,array$a=array()){
+     list($_id)=$this->getRequest()->getParam(array($_GET['id']));
+         $_where = array("id='$_id'");
+         return parent::delete('',$_where);
      }
      public  function  isOne($_where,$b=0) {
          return parent::isOne($_where);

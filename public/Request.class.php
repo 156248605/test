@@ -64,6 +64,15 @@ class Request {
 
 
     }
+    //获取参数处理
+    public  function getParam(Array $_param){
+        $_getParam = array();
+         foreach ($_param as $_key=>$_value){
+             if($_key=='in')$_value = str_replace(',', "','", $_value);
+             $_getParam[]=$_value;
+         }
+           return $_getParam;
+    }
     //处理一条数据
     public  function  one($_fields){
         $_oneData = array();
