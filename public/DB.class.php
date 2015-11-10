@@ -30,34 +30,32 @@ class DB {
          $_sql = "INSERT INTO $_tables[0] ($_addFields) VALUES ('$_addValues')";
          return $this->execute($_sql);
      }
-    protected function  update($_tables,$_oneData,$_updateData){
-        $_isAnd = '';
-        foreach($_oneData as $_key=>$_value){
-            $_isAnd .= "$_key='$_value' AND ";
+    protected function  update(array $_tables,array $_param,array $_updateData){
+        $_where= $_setData = '';
+        foreach($_param as $_key=>$_value){
+            $_where .=$_value.' AND ';
         }
-        $_isAnd = substr($_isAnd, 0, -4);
-        $_setData = '';
+        $_where ='WHERE '.substr($_where, 0, -4);
         foreach ($_updateData as $_key=>$_value) {
             if(Validate::isArray($_value)){
              $_setData .= "$_key=$_value[0],";
-
             }else {
                 $_setData .= "$_key='$_value',";
             }
         }
         $_setData = substr($_setData, 0, -1);
-        $_sql = "UPDATE $_tables[0] SET $_setData WHERE $_isAnd LIMIT 1";
+        $_sql = "UPDATE $_tables[0] SET $_setData $_where LIMIT 1";
         return $this->execute($_sql)->rowCount();
 
     }
      //验证一条数据
-    protected  function  isOne($_tables,$_where){
-        $_isAnd = '';
-        foreach ($_where as $_key=>$_value){
-            $_isAnd .= "$_key='$_value' AND ";
+    protected  function  isOne($_tables,array $_param){
+        $_where = '';
+        foreach ($_param as $_key=>$_value){
+            $_where .=$_value.' AND ';
         }
-        $_isAnd =substr($_isAnd,0,-4);
-        $_sql="SELECT 'id' FROM $_tables[0] WHERE $_isAnd LIMIT 1";
+        $_where ='WHERE '.substr($_where,0,-4);
+        $_sql="SELECT 'id' FROM $_tables[0] $_where LIMIT 1";
         return $this->execute($_sql)->rowCount();
     }
     //删除一条数据
@@ -72,18 +70,16 @@ class DB {
 
     }
     //返回所有数据
-    protected  function   select($_tables,$_fileld,$_param=array()){
-        $_limit = $_order = $_where = $_isAnd = $_table = '';
+    protected  function   select(array $_tables,array $_fileld, array $_param=array()){
+        $_limit = $_order = $_where = $_isAnd ='';
         if(Validate::isArray($_param) && !Validate::isNullArray($_param)){
             $_limit = isset($_param['limit']) ? 'LIMIT '.$_param['limit'] : '';
             $_order = isset($_param['order']) ? 'ORDER BY '.$_param['order'] : '';
-            if (isset($_param['where'])&&Validate::isArray($_param['where'])) {
+            if (isset($_param['where'])) {
                 foreach ($_param['where'] as $_key=>$_value) {
-                    $_isAnd .= "$_key='$_value' AND ";
+                    $_isAnd .=$_value. ' AND ' ;
                 }
                 $_where = 'WHERE '.substr($_isAnd, 0, -4);
-            }elseif (isset($_param['where'])){
-                $_where = 'WHERE '.$_param['where'];
             }
         }
         $_selectFields = implode(',',$_fileld);

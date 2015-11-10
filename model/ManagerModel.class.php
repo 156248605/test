@@ -8,24 +8,27 @@ class ManagerModel extends  Model{
      }
      public  function  findAll(){
          $this->_tables = array(DB_FREFIX.'manager a',DB_FREFIX.'level b');
-         return parent::select(array('a.id','a.user','a.level','a.login_count','a.last_ip','a.last_time','b.level_name'),array('where'=>'a.level=b.id','limit'=>$this->_limit,'order'=>'a.reg_time DESC'));
+         return parent::select(array('a.id','a.user','a.level','a.login_count','a.last_ip','a.last_time','b.level_name'),array('where'=>array('a.level=b.id'),'limit'=>$this->_limit,'order'=>'a.reg_time DESC'));
      }
      public  function  findOne(){
-         $_oneData = $this->getRequest()->one($this->_fields);
-         return parent::select(array('id','user','level'),array('where'=>$_oneData, 'limit'=>'1'));
+         list($_id)=$this->getRequest()->getParam(array($_GET['id']));
+         $_where = array("id='$_id'");
+         $this->getRequest()->one($_where);
+         return parent::select(array('id','user','level'),array('where'=>$_where, 'limit'=>'1'));
      }
     public function  findLogin(){
+        list($_user) = $this->getRequest()->getParam(array($_POST['user']));
         $this->_tables = array(DB_FREFIX.'manager a',DB_FREFIX.'level b');
         return parent::select(array('a.user','b.level_name'),
-                          array('where'=>'a.level=b.id AND a.user='."'{$_POST['user']}'",'limit'=>'1'));
+            array('where'=>array('a.level=b.id',"user='$_user'"),'limit'=>'1'));
     }
     public function  countLogin(){
-         // updat mall_manager set login=login+1,last_ip='',last_time='';
-         $_oneData = array('user'=>$_POST['user']);
+         list($_user) = $this->getRequest()->getParam(array($_POST['user']));
+         $_where = array("user='$_user'");
         $_updateData['login_count']=array('login_count+1');
          $_updateData['last_ip']=Tool::getIP();
          $_updateData['last_time']=Tool::getDate();
-         parent::update($_oneData,$_updateData);
+         parent::update($_where,$_updateData);
 
     }
      public function total($b=0){
@@ -38,22 +41,26 @@ class ManagerModel extends  Model{
          $_addData['reg_time'] = Tool::getDate();
          return parent::add($_addData);
      }
-     public  function  update($a=0,$b=0,$c=0){
-         $_oneData = $this->getRequest()->one($this->_fields);
-         $_updateData = $this->getRequest()->update($this->_fields);
+     public  function  update(array$a=array(),array $b=array(),array $c=array()){
+         list($_id)=$this->getRequest()->getParam(array($_GET['id']));
+         $_where = array("id='$_id'");
+         $this->getRequest()->one($_where);
+        $_updateData = $this->getRequest()->update($this->_fields);
          $_updateData['pass'] = sha1($_updateData['pass']);
-         return parent::update($_oneData, $_updateData);
+         return parent::update($_where, $_updateData);
      }
      public  function  delete($b=0,array$a=array()){
      list($_id)=$this->getRequest()->getParam(array($_GET['id']));
          $_where = array("id='$_id'");
          return parent::delete('',$_where);
      }
-     public  function  isOne($_where,$b=0) {
-         return parent::isOne($_where);
+     public  function  isOne($b=0,array $_param) {
+         return parent::isOne('',$_param);
      }
     public  function  login(){
-        return $this->getRequest()->login();
+        list($_user,$_pass)=$this->getRequest()->getParam(array($_POST['user'],$_POST['pass']));
+        $_where = array("user='$_user'","pass='".sha1($_pass)."'");
+        return $this->getRequest()->login($_where);
 
 
     }

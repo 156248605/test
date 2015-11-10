@@ -13,16 +13,16 @@ class Model extends DB {
     protected  function  add($_addData,$b=0){
         return $this->_db->add($this->_tables,$_addData);
     }
-    protected  function update($_oneData,$_updateData,$b=0){
-        return $this->_db->update($this->_tables,$_oneData,$_updateData);
+    protected  function update(array $_param,array $_updateData,array $b=array()){
+        return $this->_db->update($this->_tables,$_param,$_updateData);
     }
     protected  function  delete($b=0,array $_param){
          return $this->_db->delete($this->_tables,$_param);
     }
-    protected function isOne($_where,$b=0) {
-        return $this->_db->isOne($this->_tables,$_where);
+    protected function isOne($b=0,array $_param) {
+      return  $this->_db->isOne($this->_tables,$_param);
     }
-    protected  function  select($_field, $_param = array(),$b=0){
+    protected  function  select(array $_field, array $_param = array(),array $b=array()){
         return $this->_db->select($this->_tables,$_field,$_param);
     }
     protected function total($b=0) {

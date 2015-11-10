@@ -53,17 +53,6 @@ class Request {
         }
         return $_updateData;
     }
-    //处理删除数据请求
-    public  function delete($_fields){
-        $_deleteData = array();
-        if(Validate::isArray($_GET) && !Validate::isNullArray($_GET)){
-            $_deleteData = $this->selectData($_GET,$_fields);
-            if (!$this->_check->delete($this->_model, $_deleteData)) $this->check();
-        }
-            return $_deleteData;
-
-
-    }
     //获取参数处理
     public  function getParam(Array $_param){
         $_getParam = array();
@@ -74,18 +63,13 @@ class Request {
            return $_getParam;
     }
     //处理一条数据
-    public  function  one($_fields){
-        $_oneData = array();
-        if(Validate::isArray($_GET)&&!Validate::isNullArray($_GET)){
-            $_oneData = $this->selectData($_GET,$_fields);
-            if (!$this->_check->oneCheck($this->_model, $_oneData)) $this->check();
-        }
-        return $_oneData;
+    public  function  one(array $_param){
+        if (!$this->_check->oneCheck($this->_model, $_param)) $this->check();
     }
     //处理登录数据请求
-    public function login() {
+    public function login($_param) {
         if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-            if (!$this->_check->loginCheck($this->_model, $_POST)) $this->check();
+            if (!$this->_check->loginCheck($this->_model, $_POST,$_param)) $this->check();
         }
         return true;
     }
