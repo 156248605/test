@@ -2,48 +2,49 @@
 class ManagerCheck extends  Check{
     //用户名不得包含指定的非法词组，敏感词
     //密码不能纯数字，纯字母，或者必须包含特殊字符，或者必须大小写混拼
-    public  function  addcheck(&$_model)
+    public  function  addcheck(&$_model,$_requestdata,$_param)
     {
-        if (self::isNullString($this->_data['user'])) {
+        if (self::isNullString($_requestdata['user'])) {
             $this->_message[] = '管理员用户名不得为空!';
             $this->_flag = false;
         }
-        if (self::checkStrLength($this->_data['user'], 2, 'min')) {
+        if (self::checkStrLength($_requestdata['user'], 2, 'min')) {
             $this->_message[] = '管理员用户名不得小于2位！';
             $this->_flag = false;
         }
-        if (self::checkStrLength($this->_data['user'], 20, 'max')) {
+        if (self::checkStrLength($_requestdata['user'], 20, 'max')) {
             $this->_message[] = '管理员用户名不得大于20位！';
             $this->_flag = false;
         }
-        if (self::checkStrLength($this->_data['pass'], 6, 'min')) {
+        if (self::checkStrLength($_requestdata['pass'], 6, 'min')) {
             $this->_message[] = '管理员密码不得小于6位！';
             $this->_flag = false;
         }
-        if (!self::checkStrEquals($this->_data['pass'], $this->_data['notpass'])) {
+        if (!self::checkStrEquals($_requestdata['pass'], $this->_data['notpass'])) {
             $this->_message[] = '管理员密码和确认密码必须保持一致！';
             $this->_flag = false;
         }
-        if (self::isNullString($this->_data['level'])) {
+        if (self::isNullString($_requestdata['level'])) {
             $this->_message[] = '管理员等级权限必须选择！';
             $this->_flag = false;
         }
-        if ($_model->isOne(array('user'=>$this->_data['user']))){
+        if ($_model->isOne('',$_param)){
             $this->_message[] = '管理员用户名被占用！';
             $this->_flag = false;
         }
         return $this->_flag;
+
     }
-    public function updateCheck(ManagerModel &$_model, $_param) {
-        if (self::checkStrLength($_param['pass'], 6, 'min')) {
+    public function updateCheck(ManagerModel &$_model, $_requestdata) {
+        if (self::checkStrLength($_requestdata['pass'], 6, 'min')) {
             $this->_message[] = '管理员密码不得小于6位！';
             $this->_flag = false;
         }
-        if (!self::checkStrEquals($_param['pass'], $_param['notpass'])) {
+        if (!self::checkStrEquals($_requestdata['pass'], $_requestdata['notpass'])) {
             $this->_message[] = '管理员密码和确认密码必须保持一致！';
             $this->_flag = false;
         }
-        if (self::isNullString($_param['level'])) {
+        if (self::isNullString($_requestdata['level'])) {
             $this->_message[] = '管理员等级权限必须选择！';
             $this->_flag = false;
         }

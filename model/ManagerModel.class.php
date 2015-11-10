@@ -35,14 +35,16 @@ class ManagerModel extends  Model{
          return parent::total();
      }
      public  function  add($_request,$b=0){
-         $_addData = $_request->add($this->_fields);
+         list($_user) = $this->getRequest()->getParam(array($_POST['user']));
+         $_where=array("user='$_user'");
+         $_addData = $this->getRequest()->add($this->_fields,$_where);
          $_addData['pass'] = sha1($_addData['pass']);
          $_addData['last_ip'] = Tool::getIP();
          $_addData['reg_time'] = Tool::getDate();
          return parent::add($_addData);
      }
      public  function  update(array$a=array(),array $b=array(),array $c=array()){
-         list($_id)=$this->getRequest()->getParam(array($_GET['id']));
+         list($_id) = $this->getRequest()->getParam(array($_POST['id']));
          $_where = array("id='$_id'");
          $this->getRequest()->one($_where);
         $_updateData = $this->getRequest()->update($this->_fields);

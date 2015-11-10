@@ -27,25 +27,16 @@ class Request {
 	private function __construct() {}
 
 	//处理新增数据请求
-	public function add($_fields) {
+	public function add(array $_fields,array $_param=array()) {
 		$_addData = array();
 		if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-			if (!$this->_check->addcheck($this->_model)) {
-                $this->_tpl->assign('message', $this->_check->getMessage());
-                $this->_tpl->assign('prev', Tool::getPrevPage());
-                $this->_tpl->display(SMARTY_ADMIN.'public/error.html');
-				exit();
-			}
-			foreach ($_POST as $_key=>$_value) {
-				if (Validate::inArray($_key, $_fields)) {
-					$_addData[$_key] = $_value;
-				}
-			}
-		}
+            if (!$this->_check->addcheck($this->_model,$_POST,$_param))$this->check();
+        $_addData = $this->selectData($_POST,$_fields);
+    }
 		return $_addData;
  	}
     //处理修改数据请求
-    public function update($_fields) {
+    public function update(array $_fields) {
         $_updateData = array();
         if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
             if (!$this->_check->updateCheck($this->_model, $_POST)) $this->check();
