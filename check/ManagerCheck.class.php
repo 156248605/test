@@ -65,8 +65,8 @@ class ManagerCheck extends  Check{
         }
         return $this->_flag;
     }
-    public  function  ajax(&$_model){
-         echo $_model->isOne(array('user'=>$_POST['user'])) ?1:2;
+    public  function  ajax(&$_model,array $_param){
+         echo $_model->isOne('',$_param) ?1:2;
     }
     public  function  loginCheck(&$_model,$_param,$_whereparam){
         if (self::isNullString($_param['user'])) {

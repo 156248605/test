@@ -4,6 +4,7 @@ class Model extends DB {
     protected $_db=null;
     protected $_fields = array();
     protected $_tables = array();
+    protected $_R = array();
     protected $_check = null;
     protected $_request = null;
     protected $_limit = '';

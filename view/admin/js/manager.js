@@ -46,7 +46,7 @@ $(function () {
     $('input[name=user]').on('blur',function(){
         $.ajax({
             type:"POST",
-            url:"?a=manager&m=ajax",
+            url:"?a=manager&m=ajaxUser",
             data:{user:$('input[name=user]').val()},
             success:function(data){
                if(data==1){
