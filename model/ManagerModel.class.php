@@ -60,9 +60,6 @@ class ManagerModel extends  Model{
          $_where = array("id='{$this->_R['id']}'");
          return parent::delete('',$_where);
      }
-     public  function  isOne($b=0,array $_param) {
-         return parent::isOne('',$_param);
-     }
     public  function  login(){
         $_where = array("user='{$this->_R['user']}'","pass='".sha1($this->_R['pass'])."'");
         return $this->getRequest()->login($_where);

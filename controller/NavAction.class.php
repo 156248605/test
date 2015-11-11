@@ -25,7 +25,7 @@ class NavAction extends  Action
         $this->_tpl->display(SMARTY_ADMIN . 'nav/add.html');
     }
     public function update(){
-        if (isset($_POST['send'])) $this->_model->update() ? $this->_redirect->succ(Tool::getPrevPage(), '管理员修改成功！') : $this->_redirect->error('管理员修改失败！');
+        if (isset($_POST['send'])) $this->_model->update() ? $this->_redirect->succ(Tool::getPrevPage(), '导航名称修改成功！') : $this->_redirect->error('管理员修改失败！');
         if (isset($_GET['id'])){
             $this->_tpl->assign('OneNav',$this->_model->findOne());
             $this->_tpl->display(SMARTY_ADMIN.'nav/update.html');
@@ -40,8 +40,8 @@ class NavAction extends  Action
 
     }
     //ajax
-    public  function  ajax($b=0){
-        $this->_check->ajax($this->_model);
+    public  function  ajax(){
+        $this->_model->isName();
     }
 
 }

@@ -20,7 +20,7 @@ class Model extends DB {
     protected  function  delete($b=0,array $_param){
          return $this->_db->delete($this->_tables,$_param);
     }
-    protected function isOne($b=0,array $_param) {
+    public function isOne($b=0,array $_param) {
       return  $this->_db->isOne($this->_tables,$_param);
     }
     protected  function  select(array $_field, array $_param = array(),array $b=array()){

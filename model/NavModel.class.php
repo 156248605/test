@@ -7,49 +7,66 @@
  */
 class NavModel extends  Model
 {
-    private  $_sid = 0;
     public function  __construct()
     {
         parent::__construct();
         $this->_fields = array('id', 'name', 'info','sort','sid');
         $this->_tables = array(DB_FREFIX . 'nav');
-        $this->_sid = isset($_GET['sid']) ? $_GET['sid'] : 0;
+        $this->_check = new NavCheck();
+        list(
+            $this->_R['id'],
+            $this->_R['sid'],
+            $this->_R['name']
+            ) = $this->getRequest()->getParam(array(
+            isset($_GET['id']) ? $_GET['id'] : null,
+            isset($_GET['sid']) ? $_GET['sid'] : 0,
+            isset($_POST['name']) ? $_POST['name'] : null
+        ));
     }
     public function add($_addData,$b=0) {
-        $_addData = $this->getRequest()->add($this->_fields);
+        $_where = array("name='{$this->_R['name']}'");
+        $_addData = $this->getRequest()->add($this->_fields, $_where);
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
     }
     public  function  findAll(){
-        return parent::select(array('id','name','info','sort','sid'),array('where'=>array('sid'=>$this->_sid),'limit'=>$this->_limit,'order'=>'sort ASC'));
+        return parent::select(array('id','name','info','sort','sid'),array('where'=>array("sid='{$this->_R['sid']}'"),'limit'=>$this->_limit,'order'=>'sort ASC'));
     }
     public  function  findOne(){
         if(isset($_GET['sid'])){
-            return parent::select(array('id','name','info'),array('where'=>array('id'=>$this->_sid),'limit'=>'1'));
+
+            return parent::select(array('id','name','info'),array('where'=>array("id='{$this->_R['sid']}'"),'limit'=>'1'));
         }
-        $_oneData = $this->getRequest()->one($this->_fields);
-        return parent::select(array('id','name','info'),array('where'=>$_oneData, 'limit'=>'1'));
+        $_where = array("id='{$this->_R['id']}'");
+
+        $this->getRequest()->one($_where);
+        return parent::select(array('id','name','info'),array('where'=>$_where, 'limit'=>'1'));
     }
     public function total($b=0){
         return parent::total();
     }
-    public  function  delete($b=0,$a=0){
-        $_deleteData = $this->getRequest()->delete($this->_fields);
-        return parent::delete($_deleteData);
+    public  function  delete($b=0,array $a=array()){
+        $_where = array("id='{$this->_R['id']}'");
+        return parent::delete('',$_where);
     }
-    public  function  isOne($_where,$b=0) {
-        return parent::isOne($_where);
-    }
-    public  function  update($a=0,$b=0,$c=0){
-        $_oneData = $this->getRequest()->one($this->_fields);
-        $_updateData = $this->getRequest()->update($this->_fields);
-        return parent::update($_oneData, $_updateData);
+    public  function  update(array$a=array(),array$b=array(),array$c=array()){
+        $_where = array("id='{$this->_R['id']}'");
+        $_updateData = $this->getRequest()->update($this->_fields,$_where);
+        return parent::update($_where, $_updateData);
     }
     public  function  sort(){
         foreach ($_POST['sort'] as $_key=>$_value) {
             if (!is_numeric($_value)) continue;
-            parent::update(array('id' => $_key), array('sort' => $_value));
+            $_setField= array('sort'=>$_value);
+            $_where = array("id='$_key'");
+            parent::update($_where,$_setField);
         }
             return true;
+    }
+    public  function  isName(){
+        $_where = array("name='{$this->_R['name']}'");
+        $this->_check->ajax($this,$_where);
+
+
     }
 }
