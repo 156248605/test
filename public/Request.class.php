@@ -24,13 +24,14 @@ class Request {
 	private function __clone() {}
 	
 	//私有构造
-	private function __construct() {}
+	private function __construct() {
+        Tool::setRequest();
+    }
 
 	//处理新增数据请求
-	public function add(array $_fields,array $_param=array()) {
+	public function add(array $_fields) {
 		$_addData = array();
 		if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-            if (!$this->_check->addcheck($this->_model,$_POST,$_param))$this->check();
         $_addData = $this->selectData($_POST,$_fields);
     }
 		return $_addData;
@@ -53,17 +54,17 @@ class Request {
          }
            return $_getParam;
     }
-    //处理一条数据
+  /*  //处理一条数据
     public  function  one(array $_param){
-        if (!$this->_check->oneCheck($this->_model, $_param)) $this->check();
-    }
-    //处理登录数据请求
+        return $this->_check->oneCheck($this->_model, $_param);
+    }*/
+ /*   //处理登录数据请求
     public function login($_param) {
         if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
             if (!$this->_check->loginCheck($this->_model, $_POST,$_param)) $this->check();
         }
         return true;
-    }
+    }*/
 
     //筛选数据
     private  function  selectData($_requestData,$_fields) {
@@ -74,14 +75,6 @@ class Request {
             }
         }
         return $_selectData;
-    }
-    private  function  check() {
-        $this->_tpl->assign('message', $this->_check->getMessage());
-        $this->_tpl->assign('prev', Tool::getPrevPage());
-        $this->_tpl->display(SMARTY_ADMIN.'public/error.html');
-        exit();
-
-
     }
 
 }

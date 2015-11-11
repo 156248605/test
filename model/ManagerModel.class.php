@@ -22,7 +22,7 @@ class ManagerModel extends  Model{
      }
      public  function  findOne(){
          $_where = array("id='{$this->_R['id']}'");
-         $this->getRequest()->one($_where);
+         if(!$this->_check->oneCheck($this,$_where)) $this->_check->error();
          return parent::select(array('id','user','level'),array('where'=>$_where, 'limit'=>'1'));
      }
     public function  findLogin(){
@@ -43,7 +43,8 @@ class ManagerModel extends  Model{
      }
      public  function  add($_request,$b=0){
          $_where=array("user='{$this->_R['user']}'");
-         $_addData = $this->getRequest()->add($this->_fields,$_where);
+         if(!$this->_check->addcheck($this,$_where))$this->_check->error();
+         $_addData = $this->getRequest()->add($this->_fields);
          $_addData['pass'] = sha1($_addData['pass']);
          $_addData['last_ip'] = Tool::getIP();
          $_addData['reg_time'] = Tool::getDate();
@@ -51,7 +52,8 @@ class ManagerModel extends  Model{
      }
      public  function  update(array$a=array(),array $b=array(),array $c=array()){
          $_where = array("id='{$this->_R['id']}'");
-         $this->getRequest()->one($_where);
+         if(!$this->_check->oneCheck($this,$_where)) $this->_check->error();
+         if(!$this->_check->updateCheck($this)) $this->_check->error();
         $_updateData = $this->getRequest()->update($this->_fields);
          $_updateData['pass'] = sha1($_updateData['pass']);
          return parent::update($_where, $_updateData);
@@ -62,7 +64,11 @@ class ManagerModel extends  Model{
      }
     public  function  login(){
         $_where = array("user='{$this->_R['user']}'","pass='".sha1($this->_R['pass'])."'");
-        return $this->getRequest()->login($_where);
+        if(!$this->_check->loginCheck($this,$_where)){
+            $this->_check->error();
+        }else{
+            return true;
+        }
     }
     //ajax
     public  function  isUser(){

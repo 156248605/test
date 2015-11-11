@@ -4,7 +4,6 @@ class AdminAction extends  Action{
    public  function  __construct(){
        parent::__construct();
        $this->_manager = new ManagerModel();
-
    }
    public  function  index(){
        if(isset($_SESSION['admin'])){
