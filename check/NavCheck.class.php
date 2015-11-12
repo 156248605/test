@@ -31,13 +31,13 @@ class NavCheck extends Check {
         }
         return $this->_flag;
     }
-    public  function  delete(&$_model){
+ /*   public  function  delete(&$_model){
         if(!$_model->isOne($_POST)){
             $this->_message[] = '找不到将要删除的导航！';
             $this->_flag = false;
         }
         return $this->_flag;
-    }
+    }*/
     public function updateCheck(&$_model) {
         if (self::checkStrLength($_POST['info'], 200, 'max')) {
             $this->_message[] = '导航简介不得大于200位！';

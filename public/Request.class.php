@@ -3,19 +3,10 @@
 class Request {
 	//用于存放实例化的对象
 	static private $_instance = null;
-	//验证对象
-	private  $_check = null;
-    private  $_tpl = null;
-    //实体对象
-    private $_model = null;
-	
 	//公共静态方法获取实例化的对象
-	static public function getInstance(&$_model,&$_check) {
+	static public function getInstance() {
 		if (!(self::$_instance instanceof self)) {
 			self::$_instance = new self();
-            self::$_instance->_model = $_model;
-			self::$_instance->_check = $_check;
-            self::$_instance->_tpl = TPL::getInstance();
 		}
 		return self::$_instance;
 	}
@@ -28,23 +19,26 @@ class Request {
         Tool::setRequest();
     }
 
-	//处理新增数据请求
-	public function add(array $_fields) {
-		$_addData = array();
+	//获取新增和修改的字段
+	public function filter(array $_fields) {
+		$_selectData = array();
 		if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-        $_addData = $this->selectData($_POST,$_fields);
+            foreach ($_POST as $_key=>$_value){
+                if(Validate::inArray($_key,$_fields)){
+                    $_selectData[$_key] = $_value;
+                }
+            }
     }
-		return $_addData;
+		return $_selectData;
  	}
-    //处理修改数据请求
+  /*  //处理修改数据请求
     public function update(array $_fields) {
         $_updateData = array();
         if (Validate::isArray($_POST) && !Validate::isNullArray($_POST)) {
-            if (!$this->_check->updateCheck($this->_model, $_POST)) $this->check();
             $_updateData = $this->selectData($_POST, $_fields);
         }
         return $_updateData;
-    }
+    }*/
     //获取参数处理
     public  function getParam(Array $_param){
         $_getParam = array();
@@ -66,7 +60,7 @@ class Request {
         return true;
     }*/
 
-    //筛选数据
+ /*   //筛选数据
     private  function  selectData($_requestData,$_fields) {
         $_selectData = array();
         foreach ($_requestData as $_key=>$_value){
@@ -75,6 +69,6 @@ class Request {
             }
         }
         return $_selectData;
-    }
+    }*/
 
 }

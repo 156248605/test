@@ -26,9 +26,13 @@ class NavModel extends  Model
     public function add($_addData,$b=0) {
         $_where = array("name='{$this->_R['name']}'");
         if(!$this->_check->addcheck($this,$_where))$this->_check->error();
-        $_addData = $this->getRequest()->add($this->_fields);
+        $_addData = $this->getRequest()->filter($this->_fields);
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
+    }
+    public function findFrontTenNav(){
+       return parent::select(array('id','name'),
+              array('where'=>array('sid=0'),'limit'=>'10','order'=>'sort ASC'));
     }
     public  function  findAll(){
         return parent::select(array('id','name','info','sort','sid'),array('where'=>array("sid='{$this->_R['sid']}'"),'limit'=>$this->_limit,'order'=>'sort ASC'));
@@ -53,7 +57,7 @@ class NavModel extends  Model
         $_where = array("id='{$this->_R['id']}'");
         if(!$this->_check->oneCheck($this,$_where)) $this->_check->error();
         if(!$this->_check->updateCheck($this)) $this->_check->error();
-        $_updateData = $this->getRequest()->update($this->_fields);
+        $_updateData = $this->getRequest()->filter($this->_fields);
         return parent::update($_where, $_updateData);
     }
     public  function  sort(){

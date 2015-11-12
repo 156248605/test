@@ -20,7 +20,7 @@ class NavAction extends  Action
     }
 
     public  function  add(){
-        if (isset($_POST['send']))$this->_model->add(Request::getInstance($this->_model,$this->_check))?Redirect::getInstance($this->_tpl)->succ('?a=nav','导航新增成功！'): Redirect::getInstance($this->_tpl)->error('导航新增失败!');
+        if (isset($_POST['send']))$this->_model->add(Request::getInstance())?Redirect::getInstance($this->_tpl)->succ('?a=nav','导航新增成功！'): Redirect::getInstance($this->_tpl)->error('导航新增失败!');
         if (isset($_GET['id'])) $this->_tpl->assign('OneNav',$this->_model->findOne());
         $this->_tpl->display(SMARTY_ADMIN . 'nav/add.html');
     }
