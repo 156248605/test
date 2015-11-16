@@ -12,6 +12,14 @@ body{
 ul{
     list-style-type: none;
 }
+a{
+    color: #026ACB;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+
+}
 #header{
     height: 60px;
     margin: 0 0 10px 0;
@@ -54,6 +62,12 @@ ul{
 #nav ul li a:hover{
     background-position: right;
     color: #fff;
+}
+#nav ul li a.strong{
+    background-position: right;
+    color: #fff;
+
+
 }
 #search{
     height: 36px;

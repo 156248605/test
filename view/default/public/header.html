@@ -3,9 +3,17 @@
 </div>
 <div id="nav">
     <ul>
+        {if isset($smarty.get.id)}
         <li><a href="./">首页</a></li>
+        {else}
+        <li><a href="./" class="strong">首页</a></li>
+        {/if}
         {foreach $FrontTenNav as $key=>$value}
+        {if isset($smarty.get.id)&&$smarty.get.id==$value->id}
+        <li><a href="?a=list&id={$value->id}" class="strong">{$value->name}</a></li>
+        {else}
         <li><a href="?a=list&id={$value->id}">{$value->name}</a></li>
+        {/if}
         {/foreach}
     </ul>
 </div>
