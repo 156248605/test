@@ -9,14 +9,14 @@
 <body>
 {include file='default/public/header.html'}
 <div id="sait">
-    当前位置: <a href="./">首页</a> &gt;<a href="###">女士服装</a> &gt;<a href="###">牛仔裤</a>
+    当前位置: <a href="./">首页</a> &gt;{$FrontNav[0]->sait}
 </div>
 <div id="sidebar">
-   <h2>女士服装</h2>
+   <h2>{$FrontNav[0]->name}</h2>
     <ul>
-        <li><a href="###">牛仔裤<span class="gray">(1000)</span></a></li>
-        <li><a href="###">牛仔裤<span class="gray">(1000)</span></a></li>
-        <li><a href="###">牛仔裤<span class="gray">(1000)</span></a></li>
+        {foreach $FrontNav[0]->child as $key=>$value}
+        <li><a href="?a=list&id={$value->id}">{$value->name}<span class="gray">(1000)</span></a></li>
+        {/foreach}
     </ul>
 </div>
 <div id="main">

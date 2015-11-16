@@ -7,6 +7,7 @@ class ListAction extends Action {
       $this->_nav = new NavModel();
     }
    public function  index(){
+       $this->_tpl->assign('FrontNav', $this->_nav->findFrontNav());
        $this->_tpl->assign('FrontTenNav', $this->_nav->findFrontTenNav());
        $this->_tpl->display(SMARTY_FRONT.'public/list.html');
 

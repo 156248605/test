@@ -20,11 +20,16 @@ class Check extends  Validate{
         return $this->_flag;
     }
 
-    public  function  error() {
-        $this->_tpl->assign('message', $this->_message);
-        $this->_tpl->assign('prev', Tool::getPrevPage());
-        $this->_tpl->display(SMARTY_ADMIN.'public/error.html');
-        exit();
+    public  function  error($_url='') {
+        if(empty($_url)) {
+            $this->_tpl->assign('message', $this->_message);
+            $this->_tpl->assign('prev', Tool::getPrevPage());
+            $this->_tpl->display(SMARTY_ADMIN . 'public/error.html');
+            exit();
+        }else{
+            Redirect::getInstance()->succ($_url);
+
+        }
     }
 
 

@@ -106,8 +106,12 @@ class DB {
     }
     //执行并返回影响行数
     private  function  execute($_sql) {
-        $_stmt=$this->_pdo->prepare($_sql);
-        $_stmt->execute();
+        try {
+            $_stmt = $this->_pdo->prepare($_sql);
+            $_stmt->execute();
+        }catch (PDOException $e){
+            exit('SQL语句:'.$_sql.'<br/>'.'错误信息:'.$e->getMessage());
+        }
         return $_stmt;
     }
 }

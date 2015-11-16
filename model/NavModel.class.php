@@ -25,10 +25,43 @@ class NavModel extends  Model
     }
     public function add($_addData,$b=0) {
         $_where = array("name='{$this->_R['name']}'");
-        if(!$this->_check->addcheck($this,$_where))$this->_check->error();
+        if(!$this->_check->addCheck($this,$_where))$this->_check->error();
         $_addData = $this->getRequest()->filter($this->_fields);
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
+    }
+    public function  findFrontNav(){
+          $_where = array("id='{$this->_R['id']}'");
+          if(!$this->_check->oneCheck($this,$_where))$this->_check->error('./');
+          $_mainNav=$_childNav = $_resultNav=array();
+          $_allNav=parent::select(array('id','name','sid'));
+           foreach($_allNav as $_key=>$_value) {
+               $_value->sid == 0 ? $_mainNav[] = $_value : $_childNav[] = $_value;
+
+               if ($_value->id == $this->_R['id']) {
+                   $_resultNav[0] = $_value;
+                   $_resultNav[0]->sait = '<a href="?a=list&id='.$_resultNav[0]->id.'">'.$_resultNav[0]->name.'</a>';
+               }
+               if ($_value->sid == $this->_R['id']) {
+                   $_resultNav[0]->child[] = $_value;
+               }
+           }
+        if ($_resultNav[0]->sid != 0) {
+            foreach ($_mainNav as $_key=>$_value) {
+                if ($_resultNav[0]->sid == $_value->id) {
+                    $_child = $_resultNav;
+                    $_resultNav[0] = $_value;
+                    $_resultNav[0]->sait = '<a href="?a=list&id='.$_resultNav[0]->id.'">'.$_resultNav[0]->name.'</a>';
+                    $_resultNav[0]->sait .= ' &gt; <a href="?a=list&id='.$_child[0]->id.'">'.$_child[0]->name.'</a>';
+                }
+            }
+            foreach ($_childNav as $_key=>$_value) {
+                if ($_resultNav[0]->id == $_value->sid) {
+                    $_resultNav[0]->child[] = $_value;
+                }
+            }
+        }
+         return $_resultNav;
     }
     public function findFrontTenNav(){
        return parent::select(array('id','name'),
