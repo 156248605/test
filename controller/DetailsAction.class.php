@@ -7,7 +7,7 @@ class DetailsAction extends Action {
 
     }
     public function  index(){
-        $this->_tpl->display(SMARTY_STYLE.'details.html');
+        $this->_tpl->display(SMARTY_FRONT.'public/details.html');
     }
 
 }
