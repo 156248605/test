@@ -64,6 +64,10 @@ dl.form textarea{
     background:#fff;
     font-size: 13px;
 }
+dl.form span.red{
+    color:red ;
+
+}
 dl.form input.submit {
     cursor:pointer;
 }

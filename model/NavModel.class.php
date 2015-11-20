@@ -30,6 +30,22 @@ class NavModel extends  Model
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
     }
+    public function  findAddGoods(){
+        $_allNav=parent::select(array('id','name','sid'),
+                                array('order'=>'sort ASC'));
+          foreach($_allNav as $_key=>$_value){
+               $_value->sid==0?$_mainNav[]=$_value:$_childNav[]=$_value;
+          }
+         foreach($_mainNav as $_key=>$_value){
+             foreach($_childNav as $_k=>$_v){
+                 if($_value->id==$_v->sid){
+                     $_value->child[$_v->id]=$_v->name;
+                 }
+             }
+         }
+          return  $_mainNav;
+
+    }
     public function  findFrontNav(){
           $_where = array("id='{$this->_R['id']}'");
           if(!$this->_check->oneCheck($this,$_where))$this->_check->error('./');
