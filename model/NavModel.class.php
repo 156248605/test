@@ -26,6 +26,7 @@ class NavModel extends  Model
     public function add($_addData,$b=0) {
         $_where = array("name='{$this->_R['name']}'");
         if(!$this->_check->addCheck($this,$_where))$this->_check->error();
+
         $_addData = $this->getRequest()->filter($this->_fields);
         $_addData['sort'] = $this->nextId();
         return parent::add($_addData);
